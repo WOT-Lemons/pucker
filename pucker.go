@@ -16,7 +16,7 @@ const (
 	ButtonPin          uint = 25
 )
 
-type Talkiepi struct {
+type Pucker struct {
 	Config *gumble.Config
 	Client *gumble.Client
 
@@ -25,7 +25,7 @@ type Talkiepi struct {
 
 	ConnectAttempts uint
 
-	Stream *gumbleopenal.Stream
+	Stream *gumble-pulse.Stream
 
 	ChannelName    string
 	IsConnected    bool

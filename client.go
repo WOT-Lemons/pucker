@@ -1,4 +1,4 @@
-package talkiepi
+package pucker
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func (b *Talkiepi) Init() {
+func (b *Pucker) Init() {
 	b.Config.Attach(gumbleutil.AutoBitrate)
 	b.Config.Attach(b)
 
@@ -21,12 +21,12 @@ func (b *Talkiepi) Init() {
 	b.Connect()
 }
 
-func (b *Talkiepi) CleanUp() {
+func (b *Pucker) CleanUp() {
 	b.Client.Disconnect()
 	b.LEDOffAll()
 }
 
-func (b *Talkiepi) Connect() {
+func (b *Pucker) Connect() {
 	var err error
 	b.ConnectAttempts++
 
@@ -39,7 +39,7 @@ func (b *Talkiepi) Connect() {
 	}
 }
 
-func (b *Talkiepi) ReConnect() {
+func (b *Pucker) ReConnect() {
 	if b.Client != nil {
 		b.Client.Disconnect()
 	}
@@ -56,7 +56,7 @@ func (b *Talkiepi) ReConnect() {
 	}
 }
 
-func (b *Talkiepi) OpenStream() {
+func (b *Pucker) OpenStream() {
 	// Audio
 	if os.Getenv("ALSOFT_LOGLEVEL") == "" {
 		os.Setenv("ALSOFT_LOGLEVEL", "0")
@@ -70,7 +70,7 @@ func (b *Talkiepi) OpenStream() {
 	}
 }
 
-func (b *Talkiepi) ResetStream() {
+func (b *Pucker) ResetStream() {
 	b.Stream.Destroy()
 
 	// Sleep a bit and re-open
@@ -79,7 +79,7 @@ func (b *Talkiepi) ResetStream() {
 	b.OpenStream()
 }
 
-func (b *Talkiepi) TransmitStart() {
+func (b *Pucker) TransmitStart() {
 	if b.IsConnected == false {
 		return
 	}
@@ -92,7 +92,7 @@ func (b *Talkiepi) TransmitStart() {
 	b.Stream.StartSource()
 }
 
-func (b *Talkiepi) TransmitStop() {
+func (b *Pucker) TransmitStop() {
 	if b.IsConnected == false {
 		return
 	}
@@ -104,7 +104,7 @@ func (b *Talkiepi) TransmitStop() {
 	b.IsTransmitting = false
 }
 
-func (b *Talkiepi) OnConnect(e *gumble.ConnectEvent) {
+func (b *Pucker) OnConnect(e *gumble.ConnectEvent) {
 	b.Client = e.Client
 
 	b.ConnectAttempts = 0
@@ -123,7 +123,7 @@ func (b *Talkiepi) OnConnect(e *gumble.ConnectEvent) {
 	}
 }
 
-func (b *Talkiepi) OnDisconnect(e *gumble.DisconnectEvent) {
+func (b *Pucker) OnDisconnect(e *gumble.DisconnectEvent) {
 	var reason string
 	switch e.Type {
 	case gumble.DisconnectError:
@@ -147,7 +147,7 @@ func (b *Talkiepi) OnDisconnect(e *gumble.DisconnectEvent) {
 	b.ReConnect()
 }
 
-func (b *Talkiepi) ChangeChannel(ChannelName string) {
+func (b *Pucker) ChangeChannel(ChannelName string) {
 	channel := b.Client.Channels.Find(ChannelName)
 	if channel != nil {
 		b.Client.Self.Move(channel)
@@ -156,7 +156,7 @@ func (b *Talkiepi) ChangeChannel(ChannelName string) {
 	}
 }
 
-func (b *Talkiepi) ParticipantLEDUpdate() {
+func (b *Pucker) ParticipantLEDUpdate() {
 	time.Sleep(100 * time.Millisecond)
 
 	// If we have more than just ourselves in the channel, turn on the participants LED, otherwise, turn it off
@@ -172,11 +172,11 @@ func (b *Talkiepi) ParticipantLEDUpdate() {
 	}
 }
 
-func (b *Talkiepi) OnTextMessage(e *gumble.TextMessageEvent) {
+func (b *Pucker) OnTextMessage(e *gumble.TextMessageEvent) {
 	fmt.Printf("Message from %s: %s\n", e.Sender.Name, strings.TrimSpace(esc(e.Message)))
 }
 
-func (b *Talkiepi) OnUserChange(e *gumble.UserChangeEvent) {
+func (b *Pucker) OnUserChange(e *gumble.UserChangeEvent) {
 	var info string
 
 	switch e.Type {
@@ -213,7 +213,7 @@ func (b *Talkiepi) OnUserChange(e *gumble.UserChangeEvent) {
 	go b.ParticipantLEDUpdate()
 }
 
-func (b *Talkiepi) OnPermissionDenied(e *gumble.PermissionDeniedEvent) {
+func (b *Pucker) OnPermissionDenied(e *gumble.PermissionDeniedEvent) {
 	var info string
 	switch e.Type {
 	case gumble.PermissionDeniedOther:
@@ -241,23 +241,23 @@ func (b *Talkiepi) OnPermissionDenied(e *gumble.PermissionDeniedEvent) {
 	fmt.Printf("Permission denied: %s\n", info)
 }
 
-func (b *Talkiepi) OnChannelChange(e *gumble.ChannelChangeEvent) {
+func (b *Pucker) OnChannelChange(e *gumble.ChannelChangeEvent) {
 	go b.ParticipantLEDUpdate()
 }
 
-func (b *Talkiepi) OnUserList(e *gumble.UserListEvent) {
+func (b *Pucker) OnUserList(e *gumble.UserListEvent) {
 }
 
-func (b *Talkiepi) OnACL(e *gumble.ACLEvent) {
+func (b *Pucker) OnACL(e *gumble.ACLEvent) {
 }
 
-func (b *Talkiepi) OnBanList(e *gumble.BanListEvent) {
+func (b *Pucker) OnBanList(e *gumble.BanListEvent) {
 }
 
-func (b *Talkiepi) OnContextActionChange(e *gumble.ContextActionChangeEvent) {
+func (b *Pucker) OnContextActionChange(e *gumble.ContextActionChangeEvent) {
 }
 
-func (b *Talkiepi) OnServerConfig(e *gumble.ServerConfigEvent) {
+func (b *Pucker) OnServerConfig(e *gumble.ServerConfigEvent) {
 }
 
 func esc(str string) string {

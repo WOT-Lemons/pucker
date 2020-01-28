@@ -1,4 +1,4 @@
-package talkiepi
+package pucker
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/stianeikeland/go-rpio"
 )
 
-func (b *Talkiepi) initGPIO() {
-	// we need to pull in rpio to pullup our button pin
+func (b *Pucker) initGPIO() {
+	// Set the button pin from pucker.go to pull down.
 	if err := rpio.Open(); err != nil {
 		fmt.Println(err)
 		b.GPIOEnabled = false
@@ -18,12 +18,13 @@ func (b *Talkiepi) initGPIO() {
 		b.GPIOEnabled = true
 	}
 
-	ButtonPinPullUp := rpio.Pin(ButtonPin)
-	ButtonPinPullUp.PullUp()
+	pin := rpio.Pin(ButtonPin)
+	pin.PullDown()
 
 	rpio.Close()
 
-	// unfortunately the gpio watcher stuff doesnt work for me in this context, so we have to poll the button instead
+	// Button polling
+	// Using a pull down because of my hardware
 	b.Button = gpio.NewInput(ButtonPin)
 	go func() {
 		for {
@@ -33,18 +34,18 @@ func (b *Talkiepi) initGPIO() {
 				b.ButtonState = currentState
 
 				if b.Stream != nil {
-					if b.ButtonState == 1 {
-						fmt.Printf("Button is released\n")
-						b.TransmitStop()
-					} else {
-						fmt.Printf("Button is pressed\n")
+					if b.ButtonState == 0 {
+						fmt.Printf("Transmit start...\n")
 						b.TransmitStart()
+					} else {
+						fmt.Printf("Transmit stop...\n")
+						b.TransmitStop()
 					}
 				}
 
 			}
 
-			time.Sleep(500 * time.Millisecond)
+			time.Sleep(10 * time.Millisecond)
 		}
 	}()
 
@@ -54,7 +55,7 @@ func (b *Talkiepi) initGPIO() {
 	b.TransmitLED = gpio.NewOutput(TransmitLEDPin, false)
 }
 
-func (b *Talkiepi) LEDOn(LED gpio.Pin) {
+func (b *Pucker) LEDOn(LED gpio.Pin) {
 	if b.GPIOEnabled == false {
 		return
 	}
@@ -62,7 +63,7 @@ func (b *Talkiepi) LEDOn(LED gpio.Pin) {
 	LED.High()
 }
 
-func (b *Talkiepi) LEDOff(LED gpio.Pin) {
+func (b *Pucker) LEDOff(LED gpio.Pin) {
 	if b.GPIOEnabled == false {
 		return
 	}
@@ -70,7 +71,7 @@ func (b *Talkiepi) LEDOff(LED gpio.Pin) {
 	LED.Low()
 }
 
-func (b *Talkiepi) LEDOffAll() {
+func (b *Pucker) LEDOffAll() {
 	if b.GPIOEnabled == false {
 		return
 	}
