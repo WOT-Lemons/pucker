@@ -1,11 +1,11 @@
-package talkiepi
+package pucker
 
 import (
 	"crypto/tls"
 
-	"github.com/dchote/gpio"
-	"github.com/dchote/gumble/gumble"
-	"github.com/dchote/gumble/gumbleopenal"
+	"github.com/TLMcNulty/gpio"
+	"github.com/TLMcNulty/gumble"
+	"github.com/TLMcNulty/pulse"
 )
 
 // Raspberry Pi GPIO pin assignments (CPU pin definitions)
