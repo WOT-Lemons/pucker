@@ -36,7 +36,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	b.Config.Username = *Username
+	b.Config.Username = *username
 	b.Config.Password = *password
 
 	if *insecure {
