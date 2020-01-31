@@ -1,7 +1,6 @@
 package main
 
 import (
-	"crypto/rand"
 	"crypto/tls"
 	"flag"
 	"fmt"
@@ -33,7 +32,7 @@ func main() {
 
 	// if no username specified, quit
 	if len(*username) == 0 {
-		fmt.Fprintf(os.Stderr, "%s\nNo username specified.\n", err)
+		fmt.Fprintf(os.Stderr, "%s\nNo username specified.\n")
 		os.Exit(1)
 	}
 
