@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 
 	"github.com/TLMcNulty/gpio"
+	"layeh.com/gumble/gumble"
 	"github.com/TLMcNulty/gumble/gumble"
 	"github.com/TLMcNulty/gumble/gumbleopenal"
 )
