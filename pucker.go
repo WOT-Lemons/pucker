@@ -25,7 +25,7 @@ type Pucker struct {
 
 	ConnectAttempts uint
 
-	Stream *gumble-pulse.Stream
+	Stream *gumbleopenal.Stream
 
 	ChannelName    string
 	IsConnected    bool
