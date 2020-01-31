@@ -34,7 +34,7 @@ func (b *Pucker) initGPIO() {
 				b.ButtonState = currentState
 
 				if b.Stream != nil {
-					if b.ButtonState == 0 {
+					if b.ButtonState == 1 {
 						fmt.Printf("Transmit start...\n")
 						b.TransmitStart()
 					} else {
