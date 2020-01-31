@@ -34,8 +34,7 @@ func main() {
 	// if no username specified, quit
 	if len(*username) == 0 {
 		fmt.Fprintf(os.Stderr, "%s\nNo username specified.\n", err)
-			os.Exit(1)
-		}
+		os.Exit(1)
 	}
 
 	b.Config.Password = *password
