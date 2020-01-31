@@ -4,8 +4,8 @@ import (
 	"crypto/tls"
 
 	"github.com/TLMcNulty/gpio"
-	"github.com/TLMcNulty/gumble"
-	"github.com/TLMcNulty/pulse"
+	"github.com/TLMcNulty/gumble/gumble"
+	"github.com/TLMcNulty/gumble/gumbleopenal"
 )
 
 // Raspberry Pi GPIO pin assignments (CPU pin definitions)
