@@ -16,7 +16,7 @@ func main() {
 	// Command line flags
 	server := flag.String("server", "comms.wotlemons.com:64738", "the server to connect to")
 	username := flag.String("username", "252", "the username of the client")
-	password := flag.String("password", "fuckus", "the password of the server")
+	password := flag.String("password", "SECRET", "the password of the server")
 	insecure := flag.Bool("insecure", true, "skip server certificate verification")
 	certificate := flag.String("certificate", "", "PEM encoded certificate and private key")
 	channel := flag.String("channel", "Race Ops", "mumble channel to join by default")
