@@ -121,6 +121,8 @@ func (b *Pucker) OnConnect(e *gumble.ConnectEvent) {
 	if b.ChannelName != "" {
 		b.ChangeChannel(b.ChannelName)
 	}
+
+	//fmt.Printf("%+v\n", b.Config)
 }
 
 func (b *Pucker) OnDisconnect(e *gumble.DisconnectEvent) {
