@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="input", RUN+="/root/ansible_add.sh %E{NAME}"
