@@ -1,0 +1,72 @@
+---
+- name: This playbook attempts to configure a set of software to allow for VoIP communications after a bluetooth connection
+  hosts: car252
+  user: pi
+  vars:
+    device: "{{ device }}"
+  tasks:
+          #- name: Get MAC of last connected bluetooth device
+          #shell: dmesg | grep input | cut -d " " -f4 | tail -1
+          #register: last_device      
+    - name: Stop bluetooth
+      systemd:
+        name: bluetooth.service
+        state: stopped
+      become: yes
+    - name: Stop pucker
+      shell: systemctl --user stop pucker.service
+      become: pi
+    - name: Search for pulseaudio processes
+      ignore_errors: yes
+      shell: "ps -few | grep -v grep | grep pulseaudio | awk '{print $2}'"
+      register: running_processes
+    - name: Kill running processes
+      ignore_errors: yes
+      shell: "kill {{ item }}"
+      with_items: "{{ running_processes.stdout_lines }}"
+      become: yes
+    - wait_for:
+        path: "/proc/{{ item }}/status"
+        state: absent
+      with_items: "{{ running_processes.stdout_lines }}"
+      ignore_errors: yes
+      register: pulseaudio_processes
+    - name: Force kill stuck processes
+      ignore_errors: yes
+      shell: "kill -9 {{ item }}"
+      with_items: "{{ pulseaudio_processes.results | select('failed') | map(attribute='item') | list }}"
+      become: yes
+    - pause:
+            seconds: 1
+    - name: Start bluetooth
+      systemd:
+        name: bluetooth.service
+        state: started
+      become: yes
+    - name: Start pulseaudio
+      shell: pulseaudio --start
+    - pause: 
+            seconds: 1
+    - name: Do a bluetooth disconnect in one step
+      shell: |
+              bluetoothctl << EOF
+              power on
+              disconnect {{ device }}
+              exit
+              EOF
+    - name: Do a bluetooth connect in another
+      shell: |
+              bluetoothctl << EOF
+              power on
+              connect {{ device }}
+              exit
+              EOF
+    - pause:
+            seconds: 3
+    - name: Check audio card profiles
+      shell: pactl info | grep headset_head_unit
+      register: profile_check
+      ignore_errors: true
+    - name: Start pucker
+      shell: systemctl --user start pucker.service
+
