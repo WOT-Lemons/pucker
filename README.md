@@ -16,6 +16,8 @@ Install Ansible and place playbook.
 
 Connect a device. Syslog output is very helpful and relevant output from each stage in the process will be logged.
 
+Note: Though there are only 4 steps above, each of those steps has numerious intricacies you must master in order to pass through the Bridge of Hell unscathed.
+
 
 
 ## License
