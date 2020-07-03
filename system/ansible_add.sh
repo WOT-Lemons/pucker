@@ -24,7 +24,7 @@ if [ $TIMEDIFF -gt $OLDTIME ] || [ $TIMEDIFF -eq 0 ]; then
     logger "Updating active device..."
     echo "${device}" > /tmp/device
     logger "Running pucker playbook for $1"
-    /bin/su - pi -c "ssh pi@comms.wotlemons.com \"ansible-playbook /home/pi/playbooks/set_up_pucker.yml --extra-vars \"device=$1\"\""
+    /bin/su - pi -c "/usr/bin/ansible-playbook /home/pi/playbooks/set_up_pucker.yml --extra-vars device=$1"
   else
     logger "Device added too recently, try again later."
     exit 0

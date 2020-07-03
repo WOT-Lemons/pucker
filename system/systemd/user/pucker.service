@@ -1,13 +1,11 @@
 [Unit]
 Description = Headless PTT for Bluetooth devices
-Requires = systemd-user-sessions.service network.target sound.target bluetooth.target
+Requires = sound.target bluetooth.target
 After = multi-user.target
 
 [Service]
-User = pi
-Group = pi
 Type = simple
-ExecStart =
+ExecStart = /home/pi/pucker/bin/pucker
 Restart = always
 RestartSec = 5
 

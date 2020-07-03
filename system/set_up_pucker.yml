@@ -1,6 +1,6 @@
 ---
 - name: This playbook attempts to configure a set of software to allow for VoIP communications after a bluetooth connection
-  hosts: car252
+  hosts: localhost
   user: pi
   vars:
     device: "{{ device }}"
@@ -43,28 +43,28 @@
         name: bluetooth.service
         state: started
       become: yes
-    - name: Start pulseaudio
-      shell: pulseaudio --start
+      #- name: Start pulseaudio
+      #shell: pulseaudio --start
     - pause: 
             seconds: 1
     - name: Do a bluetooth disconnect in one step
       shell: |
               bluetoothctl << EOF
               power on
-              disconnect {{ device }}
+              disconnect "{{ device }}"
               exit
               EOF
     - name: Do a bluetooth connect in another
       shell: |
               bluetoothctl << EOF
               power on
-              connect {{ device }}
+              connect "{{ device }}"
               exit
               EOF
     - pause:
             seconds: 3
     - name: Check audio card profiles
-      shell: pactl info | grep headset_head_unit
+      shell: pactl info | grep bluez
       register: profile_check
       ignore_errors: true
     - name: Start pucker

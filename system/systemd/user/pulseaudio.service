@@ -1,0 +1,11 @@
+[Unit]
+Description=pulseaudio systemd unit
+
+[Service]
+Type=exec
+Environment=LANG=C 
+ExecStart=/usr/bin/pulseaudio -vvvv --log-time=1
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
