@@ -4,22 +4,26 @@ import (
 	"fmt"
 	"time"
 
+<<<<<<< HEAD
 	"github.com/WOT-Lemons/gpio"
+=======
+    	"periph.io/x/periph/conn/gpio"
+	"periph.io/x/periph/conn/i2c"
+    	"periph.io/x/periph/host"
+    	"periph.io/x/periph/host/rpi"
+
+	"github.com/TLMcNulty/gpio"
+>>>>>>> 1f3f554bfc1235a950069070189edf8eced11127
 	"github.com/stianeikeland/go-rpio"
-	device "github.com/WOT-Lemons/go-hd44780-rpi"
-	"github.com/WOT-Lemons/go-i2c"
 )
 
 func (b *Pucker) initGPIO() {
-	// Create an i2c device
-	i2c, err:= i2c.NewI2C(0x20, 1)
-	defer i2c.Close()
-	if err != nil {
-		fmt.Println(err)
-	}
-	lcd, err := device.NewLcd(i2c, device.LCD_20x4)
-	err = lcd.BacklightOn()
-	
+	host.Init()
+	var '0x20' i2c.Addr
+	flag.Var(&addr, "addr", "i2c device address")
+	flag.Parse()
+
+
 	// Set the button pin from pucker.go to pull down.
 	if err := rpio.Open(); err != nil {
 		fmt.Println(err)
