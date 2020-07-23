@@ -2,9 +2,9 @@ package pucker
 
 import (
 	"fmt"
-	"github.com/TLMcNulty/gumble/gumble"
-	"github.com/TLMcNulty/gumble/gumbleopenal"
-	"github.com/TLMcNulty/gumble/gumbleutil"
+	"github.com/WOT-Lemons/gumble/gumble"
+	"github.com/WOT-Lemons/gumble/gumbleopenal"
+	"github.com/WOT-Lemons/gumble/gumbleutil"
 	"github.com/kennygrant/sanitize"
 	"net"
 	"os"

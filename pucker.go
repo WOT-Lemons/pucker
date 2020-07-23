@@ -3,13 +3,14 @@ package pucker
 import (
 	"crypto/tls"
 
-	"github.com/TLMcNulty/gpio"
-	"github.com/TLMcNulty/gumble/gumble"
-	"github.com/TLMcNulty/gumble/gumbleopenal"
+	"github.com/WOT-Lemons/gpio"
+	"github.com/WOT-Lemonss/gumble/gumble"
+	"github.com/WOT-Lemonss/gumble/gumbleopenal"
 )
 
 // Raspberry Pi GPIO pin assignments (CPU pin definitions)
 const (
+	LCDAddress		   
 	OnlineLEDPin       uint = 18
 	ParticipantsLEDPin uint = 23
 	TransmitLEDPin     uint = 24
