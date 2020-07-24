@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	device "github.com/WOT-Lemons/go-hd44780-rpi/"
+	device "github.com/WOT-Lemons/go-hd44780-rpi"
 	"github.com/d2r2/go-i2c"
 
 	"github.com/TLMcNulty/gpio"
