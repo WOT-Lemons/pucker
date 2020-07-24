@@ -7,7 +7,7 @@ import (
 	device "github.com/WOT-Lemons/go-hd44780-rpi"
 	"github.com/d2r2/go-i2c"
 
-	"github.com/TLMcNulty/gpio"
+	"github.com/WOT-Lemons/gpio"
 	"github.com/stianeikeland/go-rpio"
 )
 
