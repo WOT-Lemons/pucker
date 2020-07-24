@@ -4,13 +4,12 @@ import (
 	"crypto/tls"
 
 	"github.com/WOT-Lemons/gpio"
-	"github.com/WOT-Lemonss/gumble/gumble"
-	"github.com/WOT-Lemonss/gumble/gumbleopenal"
+	"github.com/WOT-Lemons/gumble/gumble"
+	"github.com/WOT-Lemons/gumble/gumbleopenal"
 )
 
 // Raspberry Pi GPIO pin assignments (CPU pin definitions)
 const (
-	LCDAddress		   
 	OnlineLEDPin       uint = 18
 	ParticipantsLEDPin uint = 23
 	TransmitLEDPin     uint = 24
