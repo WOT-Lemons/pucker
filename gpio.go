@@ -5,7 +5,7 @@ import (
 	"time"
 
 	device "github.com/WOT-Lemons/go-hd44780-rpi"
-	"github.com/d2r2/go-i2c"
+	"github.com/WOT-Lemons/go-i2c"
 
 	"github.com/WOT-Lemons/gpio"
 	"github.com/stianeikeland/go-rpio"
