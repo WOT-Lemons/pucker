@@ -12,9 +12,16 @@ import (
 )
 
 func (b *Pucker) initGPIO() {
-	i2c, err := i2c.NewI2C(0x20, 1)
+	i2c, err := i2c.NewI2C(0x20, 1); err != nil {
+		fmt.Println(err)
+		return
+	}
 
-	lcd, err := device.NewLcd(i2c, device.LCD_20x4)
+	lcd, err := device.NewLcd(i2c, device.LCD_20x4); err != nil {
+		fmt.Println(err)
+		b.LCDEnabled = false
+		return
+	}
     lcd.BacklightOn()
 
 	// Set the button pin from pucker.go to pull down.

@@ -32,6 +32,7 @@ type Pucker struct {
 	IsTransmitting bool
 
 	GPIOEnabled     bool
+	LCDEnabled		bool
 	OnlineLED       gpio.Pin
 	ParticipantsLED gpio.Pin
 	TransmitLED     gpio.Pin
