@@ -12,12 +12,15 @@ import (
 )
 
 func (b *Pucker) initGPIO() {
-	i2c, err := i2c.NewI2C(0x20, 1); err != nil {
+
+	i2c, err := i2c.NewI2C(0x20, 1)
+	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	lcd, err := device.NewLcd(i2c, device.LCD_20x4); err != nil {
+	lcd, err := device.NewLcd(i2c, device.LCD_20x4)
+	if err != nil {
 		fmt.Println(err)
 		b.LCDEnabled = false
 		return
